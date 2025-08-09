@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comercializadora San Andrés</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #1d1a2c;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    nav {
+      background-color: #292644;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #25d366;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .product {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      padding: 10px;
+      background-color: #25d366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background-color: #1ebd5a;
+    }
+
+    .cart {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .cart h3 {
+      margin-top: 0;
+    }
+
+    .cart ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart li {
+      margin-bottom: 10px;
+    }
+
+    .total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .whatsapp-button {
+      background-color: #25d366;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.webp.webp" alt="Logo San Andrés" />
+    <h1>Comercializadora San Andrés</h1>
+    <p>Tu tienda de confianza para licores premium</p>
+  </header>
+
+  <nav>
+    <a href="#productos">Productos</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <section id="productos">
+    <h2>Catálogo</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="lista.webp" alt="Johnnie Walker Black Label" />
+        <h3>Black Label 750ml</h3>
+        <p>$120.000</p>
+        <button class="btn" onclick="addToCart('Black Label 750ml', 120000)">Agregar al carrito</button>
+      </div>
+
+      <div class="product">
+        <img src="lista1.webp" alt="Johnnie Walker Red Label" />
+        <h3>Red Label 450ml</h3>
+        <p>$60.000</p>
+        <button class="btn" onclick="addToCart('Red Label 450ml', 60000)">Agregar al carrito</button>
+      </div>
+
+      <!-- Puedes agregar más productos aquí -->
+    </div>
+
+    <div class="cart" id="carrito">
+  <h3>🛒 Carrito de compras</h3>
+  <ul id="cart-items"></ul>
+  <p class="total">Total: $<span id="total">0</span></p>
+  <button class="btn" onclick="vaciarCarrito()">Vaciar carrito</button>
+
+  <h4 style="margin-top: 30px;">💳 Forma de pago</h4>
+  <select id="formaPago" onchange="mostrarDetallesPago()" class="btn" style="width: 100%; margin-top: 10px;">
+    <option value="">-- Selecciona un método --</option>
+    <option value="efectivo">Efectivo</option>
+    <option value="transferencia">Transferencia Bancaria</option>
+    <option value="contraentrega">Pago contra entrega</option>
+  </select>
+
+  <div id="detallesPago" style="margin-top: 15px;"></div>
+
+  <button class="btn" onclick="finalizarCompra()" style="margin-top: 20px;">✅ Finalizar compra</button>
+</div>
+
+  </section>
+
+  <section id="nosotros">
+    <h2>¿Quiénes somos?</h2>
+    <p style="text-align: center; max-width: 700px; margin: 0 auto;">
+      En Bogotá, somos tu mejor opción en distribución y venta de licores nacionales e importados. Ofrecemos calidad, variedad y atención personalizada para cada cliente.
+    </p>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <p style="text-align: center;">
+      📍 Bogotá, Colombia<br />
+      📞 +57 3135155143<br />
+      📧 pruebas@gmail.com
+    </p>
+    <div style="text-align: center;">
+      <a 
+        href="https://wa.me/573135155143?text=Hola%2C%20estoy%20interesado%20en%20comprar%20licores.%20%C2%BFMe%20puedes%20ayudar%3F" 
+        target="_blank" 
+        class="whatsapp-button">
+        📲 Chatea por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <script>
+    let carrito = [];
+    let total = 0;
+
+    function addToCart(nombre, precio) {
+      carrito.push({ nombre, precio });
+      total += precio;
+      renderCarrito();
+    }
+
+    function renderCarrito() {
+      const lista = document.getElementById('cart-items');
+      const totalElemento = document.getElementById('total');
+      lista.innerHTML = '';
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nombre} - $${item.precio.toLocaleString()}`;
+        lista.appendChild(li);
+      });
+
+      totalElemento.textContent = total.toLocaleString();
+    }
+
+    function vaciarCarrito() {
+      carrito = [];
+      total = 0;
+      renderCarrito();
+    }
+
+    function mostrarDetallesPago() {
+  const metodo = document.getElementById('formaPago').value;
+  const detalles = document.getElementById('detallesPago');
+
+  if (metodo === "transferencia") {
+    detalles.innerHTML = `
+      <p>📱 Puedes transferir a:</p>
+      <ul>
+        <li><strong>Nequi:</strong> 3135155143</li>
+        <li><strong>Daviplata:</strong> 3135155143</li>
+      </ul>
+      <p>Por favor enviar comprobante por WhatsApp.</p>
+    `;
+  } else if (metodo === "efectivo") {
+    detalles.innerHTML = `<p>💵 El pago se realiza en efectivo al recibir tu pedido.</p>`;
+  } else if (metodo === "contraentrega") {
+    detalles.innerHTML = `<p>🛵 Pagas cuando recibas tu pedido en la puerta de tu casa.</p>`;
+  } else {
+    detalles.innerHTML = ``;
+  }
+}
+
+function finalizarCompra() {
+  if (carrito.length === 0) {
+    alert("⚠️ Tu carrito está vacío.");
+    return;
+  }
+
+  const metodo = document.getElementById('formaPago').value;
+  if (!metodo) {
+    alert("⚠️ Por favor selecciona una forma de pago.");
+    return;
+  }
+
+  let resumen = "🛒 *Resumen de compra:*\n";
+  carrito.forEach((item, i) => {
+    resumen += `- ${item.nombre} - $${item.precio.toLocaleString()}\n`;
+  });
+  resumen += `\n💰 Total: $${total.toLocaleString()}\n`;
+  resumen += `🧾 Método de pago: ${metodo.charAt(0).toUpperCase() + metodo.slice(1)}\n`;
+
+  const mensaje = encodeURIComponent(resumen + "\nHola, quiero confirmar esta compra.");
+  const whatsappURL = `https://wa.me/573135155143?text=${mensaje}`;
+  window.open(whatsappURL, '_blank');
+}
+
+  </script>
+
+</body>
+</html>
