@@ -1,292 +1,535 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Comercializadora San Andrés</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Comercializadora San Andrés</title>
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #f4f4f4;
-      color: #333;
-    }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
 
-    header {
-      background-color: #1d1a2c;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-    }
+header {
+  background-color: #1d1a2c;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+}
 
-    header img {
-      width: 100px;
-      margin-bottom: 10px;
-    }
+header img {
+  width: 100px;
+  margin-bottom: 10px;
+}
 
-    nav {
-      background-color: #292644;
-      padding: 15px;
-      text-align: center;
-    }
+#user-info {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #25d366;
+  font-weight: bold;
+}
 
-    nav a {
-      color: white;
-      margin: 0 20px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
+nav {
+  background-color: #292644;
+  padding: 15px;
+  text-align: center;
+}
 
-    nav a:hover {
-      color: #25d366;
-    }
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
 
-    section {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+nav a:hover { color: #25d366; }
 
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+main {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap:20px;
+}
 
-    .product {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 15px;
-      width: 200px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
+section#productos {
+  flex: 1;
+  min-width: 700px;
+}
 
-    .product:hover {
-      transform: translateY(-5px);
-    }
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-    .product img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
+.product {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s;
+}
 
-    .btn {
-      padding: 10px;
-      background-color: #25d366;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.product:hover { transform: translateY(-5px); }
 
-    .btn:hover {
-      background-color: #1ebd5a;
-    }
+.product img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
 
-    .cart {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-top: 40px;
-    }
+.btn {
+  padding: 10px;
+  background-color: #25d366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    .cart h3 {
-      margin-top: 0;
-    }
+.btn:hover { background-color: #1ebd5a; }
 
-    .cart ul {
-      list-style: none;
-      padding: 0;
-    }
+.cart-container {
+  width: 300px;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
 
-    .cart li {
-      margin-bottom: 10px;
-    }
+.cart-header {
+  background-color: #292644;
+  color: white;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
 
-    .total {
-      font-weight: bold;
-      margin-top: 10px;
-    }
+.cart-body {
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  display: none;
+}
 
-    .whatsapp-button {
-      background-color: #25d366;
-      color: white;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 10px;
-    }
-  </style>
+.cart-body ul {
+  list-style: none;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-left:0;
+}
+
+.cart-body .total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.cart-body select {
+  width: 100%;
+  margin-top:10px;
+}
+
+.whatsapp-button {
+  background-color: #25d366;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+  color: #888;
+}
+
+.close:hover { color: red; }
+</style>
 </head>
 <body>
 
-  <header>
-    <img src="logo.webp.webp" alt="Logo San Andrés" />
-    <h1>Comercializadora San Andrés</h1>
-    <p>Tu tienda de confianza para licores premium</p>
-  </header>
+<header>
+  <img src="logo.webp.webp" alt="Logo San Andrés" />
+  <h1>Comercializadora San Andrés</h1>
+  <p>Tu tienda de confianza para licores premium</p>
+  <div id="user-info"></div>
+</header>
 
-  <nav>
-    <a href="#productos">Productos</a>
-    <a href="#nosotros">Nosotros</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
+<nav>
+  <a href="#productos">Productos</a>
+  <a href="#nosotros">Nosotros</a>
+  <a href="#contacto">Contacto</a>
+  <a href="#" onclick="abrirModal('login')">Iniciar sesión</a>
+  <a href="#" onclick="abrirModal('registro')">Registrarse</a>
+  <a href="#" id="logout" style="display:none;" onclick="cerrarSesion()">Cerrar sesión</a>
+</nav>
 
-  <section id="productos">
-    <h2>Catálogo</h2>
-    <div class="product-grid">
-      <div class="product">
-        <img src="lista.webp" alt="Johnnie Walker Black Label" />
-        <h3>Black Label 750ml</h3>
-        <p>$120.000</p>
-        <button class="btn" onclick="addToCart('Black Label 750ml', 120000)">Agregar al carrito</button>
-      </div>
+<main>
+<section id="productos">
+  <h2>Catálogo</h2>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <input type="text" id="search" placeholder="🔍 Buscar producto..." style="padding:10px; width: 300px; border-radius:6px; border:1px solid #ccc;" onkeyup="buscarProducto()">
+  </div>
+  <div class="product-grid" id="product-grid"></div>
+</section>
 
-      <div class="product">
-        <img src="lista1.webp" alt="Johnnie Walker Red Label" />
-        <h3>Red Label 450ml</h3>
-        <p>$60.000</p>
-        <button class="btn" onclick="addToCart('Red Label 450ml', 60000)">Agregar al carrito</button>
-      </div>
+<div class="cart-container">
+  <div class="cart-header" onclick="toggleCart()">🛒 Carrito de compras</div>
+  <div class="cart-body" id="carrito">
+    <ul id="cart-items"></ul>
+    <p class="total">Total: $<span id="total">0</span></p>
+    <button class="btn" onclick="vaciarCarrito()">Vaciar carrito</button>
+    <h4 style="margin-top: 20px;">💳 Forma de pago</h4>
+    <select id="formaPago" onchange="mostrarDetallesPago()">
+      <option value="">-- Selecciona un método --</option>
+      <option value="efectivo">Efectivo</option>
+      <option value="transferencia">Transferencia Bancaria</option>
+      <option value="contraentrega">Pago contra entrega</option>
+    </select>
+    <div id="detallesPago" style="margin-top: 10px;"></div>
+    <button class="btn" onclick="finalizarCompra()" style="margin-top: 15px;">✅ Finalizar compra</button>
+  </div>
+</div>
+</main>
 
-      <!-- Puedes agregar más productos aquí -->
+<section id="nosotros">
+  <h2>¿Quiénes somos?</h2>
+  <p style="text-align: center; max-width: 700px; margin: 0 auto;">
+    En Bogotá, somos tu mejor opción en distribución y venta de licores nacionales e importados. Ofrecemos calidad, variedad y atención personalizada para cada cliente.
+  </p>
+</section>
+
+<section id="contacto">
+  <h2>Contacto</h2>
+  <p style="text-align: center;">
+    📍 Bogotá, Colombia<br />
+    📞 +57 3135155143<br />
+    📧 pruebas@gmail.com
+  </p>
+  <div style="text-align: center;">
+    <a href="https://wa.me/573135155143?text=Hola,%20estoy%20interesado%20en%20comprar%20licores.%20¿Me%20puedes%20ayudar?" target="_blank" class="whatsapp-button">
+      📲 Chatea por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- MODAL LOGIN/REGISTRO -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <h2 id="modal-title">Iniciar sesión</h2>
+
+    <!-- LOGIN -->
+    <div id="form-login">
+      <input type="text" id="usuario-login" placeholder="Correo electrónico" />
+      <input type="password" id="password-login" placeholder="Contraseña" />
+      <button class="btn" onclick="iniciarSesion()">Entrar</button>
     </div>
 
-    <div class="cart" id="carrito">
-  <h3>🛒 Carrito de compras</h3>
-  <ul id="cart-items"></ul>
-  <p class="total">Total: $<span id="total">0</span></p>
-  <button class="btn" onclick="vaciarCarrito()">Vaciar carrito</button>
-
-  <h4 style="margin-top: 30px;">💳 Forma de pago</h4>
-  <select id="formaPago" onchange="mostrarDetallesPago()" class="btn" style="width: 100%; margin-top: 10px;">
-    <option value="">-- Selecciona un método --</option>
-    <option value="efectivo">Efectivo</option>
-    <option value="transferencia">Transferencia Bancaria</option>
-    <option value="contraentrega">Pago contra entrega</option>
-  </select>
-
-  <div id="detallesPago" style="margin-top: 15px;"></div>
-
-  <button class="btn" onclick="finalizarCompra()" style="margin-top: 20px;">✅ Finalizar compra</button>
+    <!-- REGISTRO -->
+    <div id="form-registro" style="display:none;">
+      <input type="text" id="nombre-registro" placeholder="Nombre" />
+      <input type="text" id="apellidos-registro" placeholder="Apellidos" />
+      <input type="date" id="fechaNacimiento" placeholder="Fecha de nacimiento" />
+      <input type="text" id="cedula" placeholder="Cédula" />
+      <input type="email" id="correo" placeholder="Correo electrónico" />
+      <input type="text" id="direccion" placeholder="Dirección" />
+      <input type="password" id="password-registro" placeholder="Contraseña" />
+      <button class="btn" onclick="registrarUsuario()">Registrar</button>
+    </div>
+  </div>
 </div>
 
-  </section>
+<script>
+// ===== CARRITO =====
+let carrito = [];
+let total = 0;
 
-  <section id="nosotros">
-    <h2>¿Quiénes somos?</h2>
-    <p style="text-align: center; max-width: 700px; margin: 0 auto;">
-      En Bogotá, somos tu mejor opción en distribución y venta de licores nacionales e importados. Ofrecemos calidad, variedad y atención personalizada para cada cliente.
-    </p>
-  </section>
-
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <p style="text-align: center;">
-      📍 Bogotá, Colombia<br />
-      📞 +57 3135155143<br />
-      📧 pruebas@gmail.com
-    </p>
-    <div style="text-align: center;">
-      <a 
-        href="https://wa.me/573135155143?text=Hola%2C%20estoy%20interesado%20en%20comprar%20licores.%20%C2%BFMe%20puedes%20ayudar%3F" 
-        target="_blank" 
-        class="whatsapp-button">
-        📲 Chatea por WhatsApp
-      </a>
-    </div>
-  </section>
-
-  <script>
-    let carrito = [];
-    let total = 0;
-
-    function addToCart(nombre, precio) {
-      carrito.push({ nombre, precio });
-      total += precio;
-      renderCarrito();
-    }
-
-    function renderCarrito() {
-      const lista = document.getElementById('cart-items');
-      const totalElemento = document.getElementById('total');
-      lista.innerHTML = '';
-
-      carrito.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.nombre} - $${item.precio.toLocaleString()}`;
-        lista.appendChild(li);
-      });
-
-      totalElemento.textContent = total.toLocaleString();
-    }
-
-    function vaciarCarrito() {
-      carrito = [];
-      total = 0;
-      renderCarrito();
-    }
-
-    function mostrarDetallesPago() {
-  const metodo = document.getElementById('formaPago').value;
-  const detalles = document.getElementById('detallesPago');
-
-  if (metodo === "transferencia") {
-    detalles.innerHTML = `
-      <p>📱 Puedes transferir a:</p>
-      <ul>
-        <li><strong>Nequi:</strong> 3135155143</li>
-        <li><strong>Daviplata:</strong> 3135155143</li>
-      </ul>
-      <p>Por favor enviar comprobante por WhatsApp.</p>
-    `;
-  } else if (metodo === "efectivo") {
-    detalles.innerHTML = `<p>💵 El pago se realiza en efectivo al recibir tu pedido.</p>`;
-  } else if (metodo === "contraentrega") {
-    detalles.innerHTML = `<p>🛵 Pagas cuando recibas tu pedido en la puerta de tu casa.</p>`;
-  } else {
-    detalles.innerHTML = ``;
-  }
+function addToCart(nombre, precio){
+  carrito.push({nombre, precio});
+  total += precio;
+  renderCarrito();
 }
 
-function finalizarCompra() {
-  if (carrito.length === 0) {
-    alert("⚠️ Tu carrito está vacío.");
-    return;
-  }
-
-  const metodo = document.getElementById('formaPago').value;
-  if (!metodo) {
-    alert("⚠️ Por favor selecciona una forma de pago.");
-    return;
-  }
-
-  let resumen = "🛒 *Resumen de compra:*\n";
-  carrito.forEach((item, i) => {
-    resumen += `- ${item.nombre} - $${item.precio.toLocaleString()}\n`;
+function renderCarrito(){
+  const lista = document.getElementById('cart-items');
+  const totalElemento = document.getElementById('total');
+  lista.innerHTML='';
+  carrito.forEach(item=>{
+    const li=document.createElement('li');
+    li.textContent=`${item.nombre} - $${item.precio.toLocaleString()}`;
+    lista.appendChild(li);
   });
-  resumen += `\n💰 Total: $${total.toLocaleString()}\n`;
-  resumen += `🧾 Método de pago: ${metodo.charAt(0).toUpperCase() + metodo.slice(1)}\n`;
-
-  const mensaje = encodeURIComponent(resumen + "\nHola, quiero confirmar esta compra.");
-  const whatsappURL = `https://wa.me/573135155143?text=${mensaje}`;
-  window.open(whatsappURL, '_blank');
+  totalElemento.textContent = total.toLocaleString();
 }
 
-  </script>
+function vaciarCarrito(){ carrito=[]; total=0; renderCarrito(); }
+
+function toggleCart(){
+  const cartBody=document.querySelector('.cart-body');
+  cartBody.style.display = cartBody.style.display==='block'?'none':'block';
+}
+
+function mostrarDetallesPago(){
+  const metodo=document.getElementById('formaPago').value;
+  const detalles=document.getElementById('detallesPago');
+  if(metodo==='transferencia'){
+    detalles.innerHTML=`<p>📱 Puedes transferir a:</p><ul>
+      <li><strong>Nequi:</strong> 3135155143</li>
+      <li><strong>Daviplata:</strong> 3135155143</li>
+      </ul><p>Por favor enviar comprobante por WhatsApp.</p>`;
+  } else if(metodo==='efectivo'){
+    detalles.innerHTML=`<p>💵 El pago se realiza en efectivo al recibir tu pedido.</p>`;
+  } else if(metodo==='contraentrega'){
+    detalles.innerHTML=`<p>🛵 Pagas cuando recibas tu pedido en la puerta de tu casa.</p>`;
+  } else detalles.innerHTML='';
+}
+
+function finalizarCompra(){
+  const usuarioActivo = localStorage.getItem('usuarioActivo');
+  if(!usuarioActivo){ alert("⚠️ Debes iniciar sesión para finalizar la compra."); abrirModal('login'); return; }
+  if(carrito.length===0){ alert("⚠️ Tu carrito está vacío."); return; }
+  const metodo = document.getElementById('formaPago').value;
+  if(!metodo){ alert("⚠️ Selecciona un método de pago."); return; }
+  let resumen = "🛒 Resumen de compra:\n";
+  carrito.forEach(item=>resumen+=`- ${item.nombre} - $${item.precio.toLocaleString()}\n`);
+  resumen+=`\n💰 Total: $${total.toLocaleString()}\n🧾 Método de pago: ${metodo}\n`;
+  const mensaje=encodeURIComponent(resumen + "Hola, quiero confirmar esta compra.");
+  window.open(`https://wa.me/573135155143?text=${mensaje}`, '_blank');
+}
+
+// ===== LOGIN/REGISTRO =====
+function abrirModal(tipo){
+  document.getElementById('modal').style.display='flex';
+  const loginForm=document.getElementById('form-login');
+  const registroForm=document.getElementById('form-registro');
+  if(tipo==='login'){
+    document.getElementById('modal-title').textContent='Iniciar sesión';
+    loginForm.style.display='block';
+    registroForm.style.display='none';
+  } else {
+    document.getElementById('modal-title').textContent='Registrarse';
+    loginForm.style.display='none';
+    registroForm.style.display='block';
+  }
+}
+
+function cerrarModal(){ document.getElementById('modal').style.display='none'; }
+
+function registrarUsuario(){
+  const nombre=document.getElementById('nombre-registro').value.trim();
+  const apellidos=document.getElementById('apellidos-registro').value.trim();
+  const fechaNac=document.getElementById('fechaNacimiento').value;
+  const cedula=document.getElementById('cedula').value.trim();
+  const correo=document.getElementById('correo').value.trim();
+  const direccion=document.getElementById('direccion').value.trim();
+  const password=document.getElementById('password-registro').value.trim();
+
+  if(!nombre||!apellidos||!fechaNac||!cedula||!correo||!direccion||!password){
+    return alert("⚠️ Completa todos los campos. La cédula es obligatoria.");
+  }
+
+  const usuarios=JSON.parse(localStorage.getItem('usuarios')||'{}');
+  if(usuarios[correo]) return alert("⚠️ Este correo ya está registrado.");
+
+  usuarios[correo]={nombre, apellidos, fechaNac, cedula, direccion, password};
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+  cerrarModal();
+}
+
+function iniciarSesion(){
+  const correo=document.getElementById('usuario-login').value.trim();
+  const password=document.getElementById('password-login').value.trim();
+  const usuarios=JSON.parse(localStorage.getItem('usuarios')||'{}');
+
+  if(usuarios[correo] && usuarios[correo].password===password){
+    localStorage.setItem('usuarioActivo', correo);
+    actualizarUsuario();
+    cerrarModal();
+  } else alert("❌ Correo o contraseña incorrectos.");
+}
+
+function cerrarSesion(){
+  localStorage.removeItem('usuarioActivo');
+  actualizarUsuario();
+}
+
+function actualizarUsuario(){
+  const userInfo=document.getElementById('user-info');
+  const logout=document.getElementById('logout');
+  const usuario=localStorage.getItem('usuarioActivo');
+  if(usuario){ userInfo.textContent=`👤 ${usuario}`; logout.style.display='inline'; }
+  else{ userInfo.textContent=''; logout.style.display='none'; }
+}
+
+window.onload=()=>{
+  actualizarUsuario();
+  renderProductos(productosLista);
+}
+
+// ===== PRODUCTOS =====
+const productosLista=[
+  {nombre:"Black Label 750ml", precio:120000, img:"imagenes/lista.webp"},
+      {nombre:"Red Label 450ml", precio:60000, img:"imagenes/lista1.webp"},
+      {nombre:"Old Parr 750ml", precio:145000, img:"imagenes/OLD-PARR-12-750.png"},
+      {nombre:"Chivas Regal 12", precio:150000, img:"imagenes/Chivas 700 ml.jpg"},
+      {nombre:"Jack Daniels 750ml", precio:135000, img:"imagenes/Whiskey-Jack-Daniels-No-7-700ml.png"},
+      {nombre:"Buchanans Deluxe", precio:140000, img:"imagenes/lista.webp"},
+      {nombre:"Ballantines 750ml", precio:90000, img:"imagenes/lista.webp"},
+      {nombre:"Jameson 750ml", precio:130000, img:"imagenes/lista.webp"},
+      {nombre:"Absolut Vodka", precio:95000, img:"imagenes/lista.webp"},
+      {nombre:"Smirnoff Vodka", precio:70000, img:"imagenes/lista.webp"},
+      {nombre:"Patron Silver 750ml", precio:350000, img:"imagenes/lista.webp"},
+{nombre:"Jose Cuervo Especial 750ml", precio:130000, img:"imagenes/lista.webp"},
+{nombre:"Hennessy V.S 750ml", precio:450000, img:"imagenes/lista.webp"},
+{nombre:"Martell Cordon Bleu 750ml", precio:500000, img:"lista.webp"},
+{nombre:"Rémy Martin XO 750ml", precio:1200000, img:"lista.webp"},
+{nombre:"Glenlivet 12 Años 750ml", precio:270000, img:"lista.webp"},
+{nombre:"Glenfiddich 15 Años 750ml", precio:390000, img:"lista.webp"},
+{nombre:"Macallan 12 Años 750ml", precio:500000, img:"lista.webp"},
+{nombre:"Macallan 18 Años 750ml", precio:1500000, img:"lista.webp"},
+{nombre:"Chivas Regal 18 Años 750ml", precio:280000, img:"lista.webp"},
+{nombre:"Johnnie Walker Platinum 18 Años", precio:800000, img:"lista.webp"},
+{nombre:"Johnnie Walker Double Black 750ml", precio:220000, img:"lista.webp"},
+{nombre:"Johnnie Walker Gold Label 750ml", precio:700000, img:"lista.webp"},
+{nombre:"Jameson Black Barrel 750ml", precio:195000, img:"lista.webp"},
+{nombre:"Maker's Mark 750ml", precio:260000, img:"lista.webp"},
+{nombre:"Bulleit Bourbon 750ml", precio:240000, img:"lista.webp"},
+{nombre:"Wild Turkey 101 750ml", precio:230000, img:"lista.webp"},
+{nombre:"Crown Royal 750ml", precio:310000, img:"lista.webp"},
+{nombre:"Seagram's 7 750ml", precio:150000, img:"lista.webp"},
+{nombre:"Canadian Club 750ml", precio:210000, img:"lista.webp"},
+{nombre:"Tequila Herradura 750ml", precio:260000, img:"lista.webp"},
+{nombre:"El Jimador Reposado 750ml", precio:110000, img:"lista.webp"},
+{nombre:"1800 Reposado 750ml", precio:240000, img:"lista.webp"},
+{nombre:"Casamigos Blanco 750ml", precio:420000, img:"lista.webp"},
+{nombre:"Don Papa Rum 750ml", precio:280000, img:"lista.webp"},
+{nombre:"Appleton Estate 12 Años", precio:340000, img:"lista.webp"},
+{nombre:"Zacapa 23 750ml", precio:450000, img:"lista.webp"},
+{nombre:"Bacardi 8 Años 750ml", precio:190000, img:"lista.webp"},
+{nombre:"Diplomático Mantuano 750ml", precio:250000, img:"lista.webp"},
+{nombre:"Dictador 12 Años 750ml", precio:300000, img:"lista.webp"},
+{nombre:"Mount Gay Eclipse 750ml", precio:220000, img:"lista.webp"},
+{nombre:"Ron Abuelo 12 Años 750ml", precio:270000, img:"lista.webp"},
+{nombre:"Flor de Caña 18 Años", precio:760000, img:"lista.webp"},
+{nombre:"Suntory Toki 750ml", precio:280000, img:"lista.webp"},
+{nombre:"Yamazaki 12 Años 750ml", precio:1600000, img:"lista.webp"},
+{nombre:"Nikka From The Barrel 750ml", precio:560000, img:"lista.webp"},
+{nombre:"Hakushu 12 Años 750ml", precio:1500000, img:"lista.webp"},
+{nombre:"Kavalan Concertmaster 750ml", precio:900000, img:"lista.webp"},
+{nombre:"Bushmills 10 Años 750ml", precio:260000, img:"lista.webp"},
+{nombre:"Auchentoshan 12 Años 750ml", precio:240000, img:"lista.webp"},
+{nombre:"Lagavulin 16 Años 750ml", precio:1800000, img:"lista.webp"},
+{nombre:"Laphroaig 10 Años 750ml", precio:950000, img:"lista.webp"},
+{nombre:"Talisker 10 Años 750ml", precio:780000, img:"lista.webp"},
+{nombre:"Oban 14 Años 750ml", precio:880000, img:"lista.webp"},
+{nombre:"Ardbeg 10 Años 750ml", precio:900000, img:"lista.webp"},
+{nombre:"Glenmorangie 10 Años 750ml", precio:420000, img:"lista.webp"},
+{nombre:"Highland Park 12 Años 750ml", precio:650000, img:"lista.webp"},
+{nombre:"Old Forester 750ml", precio:230000, img:"lista.webp"},
+{nombre:"Four Roses Single Barrel 750ml", precio:350000, img:"lista.webp"},
+{nombre:"Woodford Reserve 750ml", precio:450000, img:"lista.webp"},
+{nombre:"Jack Daniel’s Tennessee Honey 750ml", precio:200000, img:"lista.webp"},
+{nombre:"Jim Beam Black 750ml", precio:210000, img:"lista.webp"},
+{nombre:"Teacher’s Highland Cream 750ml", precio:180000, img:"lista.webp"},
+{nombre:"Johnnie Walker Red Label 1L", precio:95000, img:"lista.webp"},
+{nombre:"Johnnie Walker Black Label 1L", precio:240000, img:"lista.webp"},
+{nombre:"Jameson Irish Whiskey 1L", precio:160000, img:"lista.webp"},
+{nombre:"Tullamore D.E.W. 750ml", precio:220000, img:"lista.webp"},
+{nombre:"Bushmills Original 750ml", precio:200000, img:"lista.webp"},
+{nombre:"Teeling Small Batch 750ml", precio:260000, img:"lista.webp"},
+{nombre:"Redbreast 12 Años 750ml", precio:980000, img:"lista.webp"},
+{nombre:"GlenDronach 12 Años 750ml", precio:700000, img:"lista.webp"},
+{nombre:"Aberlour 12 Años 750ml", precio:620000, img:"lista.webp"},
+{nombre:"BenRiach 10 Años 750ml", precio:480000, img:"lista.webp"},
+{nombre:"Benromach 10 Años 750ml", precio:460000, img:"lista.webp"},
+{nombre:"Tomatin 12 Años 750ml", precio:400000, img:"lista.webp"},
+{nombre:"Craigellachie 13 Años", precio:680000, img:"lista.webp"},
+{nombre:"Springbank 10 Años 750ml", precio:920000, img:"lista.webp"},
+{nombre:"Balvenie DoubleWood 12 Años", precio:980000, img:"lista.webp"},
+{nombre:"Deanston 12 Años 750ml", precio:520000, img:"lista.webp"},
+{nombre:"Ben Nevis 10 Años 750ml", precio:440000, img:"lista.webp"},
+{nombre:"Longmorn 16 Años 750ml", precio:780000, img:"lista.webp"},
+{nombre:"Glenrothes 12 Años 750ml", precio:660000, img:"lista.webp"},
+{nombre:"Compass Box Great King Street", precio:420000, img:"lista.webp"},
+{nombre:"Nikka Coffey Grain 750ml", precio:530000, img:"lista.webp"},
+{nombre:"Sazerac Rye 750ml", precio:480000, img:"lista.webp"},
+{nombre:"WhistlePig 10 Años 750ml", precio:1200000, img:"lista.webp"},
+{nombre:"Baker’s 750ml", precio:290000, img:"lista.webp"},
+{nombre:"Booker’s Bourbon 750ml", precio:980000, img:"lista.webp"},
+{nombre:"Old Grand-Dad 114 750ml", precio:240000, img:"lista.webp"},
+{nombre:"Rebel Yell 10 Años", precio:350000, img:"lista.webp"},
+      {nombre:"EH Taylor Small Batch", precio:1100000, img:"lista.webp"},
+      {nombre:"Elijah Craig 12 Años 750ml", precio:420000, img:"lista.webp"},
+      {nombre:"Buffalo Trace 750ml", precio:310000, img:"lista.webp"},
+      {nombre:"1792 Ridgemont Reserve", precio:390000, img:"lista.webp"}
+];
+
+// BUSCADOR
+function renderProductos(lista){
+  const grid=document.getElementById('product-grid');
+  grid.innerHTML='';
+  lista.forEach(p=>{
+    const div=document.createElement('div');
+    div.className='product';
+    div.innerHTML=`<img src="${p.img}" alt="${p.nombre}">
+      <h3>${p.nombre}</h3>
+      <p>$${p.precio.toLocaleString()}</p>
+      <button class="btn" onclick="addToCart('${p.nombre}',${p.precio})">Agregar al carrito</button>`;
+    grid.appendChild(div);
+  });
+}
+
+function buscarProducto(){
+  const filtro=document.getElementById('search').value.toLowerCase();
+  const filtrados=productosLista.filter(p=>p.nombre.toLowerCase().includes(filtro));
+  renderProductos(filtrados);
+}
+</script>
 
 </body>
 </html>
